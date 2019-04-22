@@ -22,5 +22,17 @@ namespace RSACriptografic.Classes
 
             return divsCount == 2 ? true : false;
         }
+
+        public static bool IsMutuallyPrimary(uint firstNum, uint secondNum)
+        {
+            uint n = firstNum < secondNum ? firstNum : secondNum;
+
+            for (int i = 2; i < n; i++)
+            {
+                if ((firstNum % i == 0) && (secondNum % i == 0)) return false;
+            }
+
+            return true;
+        }
     }
 }
