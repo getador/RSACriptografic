@@ -8,5 +8,6 @@ namespace RSACriptografic.Classes
 {
     class CriptoWorker
     {
+        string Slava;
     }
 }
