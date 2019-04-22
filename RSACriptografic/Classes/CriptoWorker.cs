@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSACriptografic.Classes
 {
-    class CriptografyWorker
+    class CriptoWorker
     {
         Random random;
         uint p;
@@ -16,7 +16,7 @@ namespace RSACriptografic.Classes
         uint d;
         double e;
 
-        public CriptografyWorker(int maxValue)
+        public CriptoWorker(int maxValue)
         {
             if (maxValue<2)
             {
