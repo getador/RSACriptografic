@@ -17,14 +17,114 @@ namespace RSACriptografic.ViewModels
         public ViewWorker()
         {
             EncriptMessage = "";
-            first = new CriptoWorker(17, random);
+            //first = new CriptoWorker(17, random);
+            first = new CriptoWorker(3,7,21,12, 5, 17);
+            pElement = first.P;
+            QElement = first.Q;
+            MElement = first.M;
+            DElement = first.D;
+            EElement = first.E;
+            NElement = first.N;
             StatusFirst = first.ToString().Replace(" ", Environment.NewLine);
         }
 
+        private void ChangeElementInClass()
+        {
+            first.P = pElement;
+            first.Q = QElement;
+            first.M = MElement;
+            first.D = DElement;
+            first.E = EElement;
+            first.N = NElement;
+            StatusFirst = first.ToString().Replace(" ",Environment.NewLine);
+        }
+
+        #region для шифратора
+        private uint pElement;
+        public uint PElement
+        {
+            get { return pElement; }
+            set
+            {
+                if (value == pElement)
+                    return;
+                pElement = value;
+                OnPropertyChanged("PElement");
+            }
+        }
+        private uint qElement;
+        public uint QElement
+        {
+            get { return qElement; }
+            set
+            {
+                if (value == qElement)
+                    return;
+                qElement = value;
+                OnPropertyChanged("QElement");
+            }
+        }
+        private uint mElement;
+        public uint MElement
+        {
+            get { return mElement; }
+            set
+            {
+                if (value == mElement)
+                    return;
+                mElement = value;
+                OnPropertyChanged("MElement");
+            }
+        }
+        private uint dElement;
+        public uint DElement
+        {
+            get { return dElement; }
+            set
+            {
+                if (value == dElement)
+                    return;
+                dElement = value;
+                OnPropertyChanged("DElement");
+            }
+        }
+        private uint eElement;
+        public uint EElement
+        {
+            get { return eElement; }
+            set
+            {
+                if (value == eElement)
+                    return;
+                eElement = value;
+                OnPropertyChanged("EElement");
+            }
+        }
+        private uint nElement;
+        public uint NElement
+        {
+            get { return nElement; }
+            set
+            {
+                if (value == nElement)
+                    return;
+                nElement = value;
+                OnPropertyChanged("NElement");
+            }
+        }
+        #endregion
+
+        private string statusFirst;
         public string StatusFirst
         {
-            get;
-            set;
+            get { return statusFirst; }
+            set
+            {
+                if (value == statusFirst)
+                    return;
+                statusFirst = value;
+                OnPropertyChanged("StatusFirst");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -67,7 +167,8 @@ namespace RSACriptografic.ViewModels
                 {
                     if (first!=null)
                     {
-                        EncriptMessage = $@"{first.Encript(forEncript, first.E, first.N)}";
+                        ChangeElementInClass();
+                        EncriptMessage = $@"{first.Encript(forEncript)}";
                     }
                 });
             }
@@ -80,6 +181,7 @@ namespace RSACriptografic.ViewModels
                 {
                     if (first != null)
                     {
+                        ChangeElementInClass();
                         UnEncriptMessage = $@"{first.ToUnEncript(EncriptMessage)}";
                     }
                 });

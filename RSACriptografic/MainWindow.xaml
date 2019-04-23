@@ -17,5 +17,11 @@
         <TextBox Text="{Binding StatusFirst}" HorizontalAlignment="Left" Height="114" Margin="0,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="115"/>
         <TextBox Text="{Binding EncriptMessage}" HorizontalAlignment="Left" Height="23" Margin="0,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115"/>
         <TextBox Text="{Binding UnEncriptMessage}" HorizontalAlignment="Left" Height="23" Margin="120,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,90,0,0" TextWrapping="Wrap" Text="{Binding PElement}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,107,0,0" TextWrapping="Wrap" Text="{Binding QElement}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,124,0,0" TextWrapping="Wrap" Text="{Binding MElement}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,141,0,0" TextWrapping="Wrap" Text="{Binding DElement}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,158,0,0" TextWrapping="Wrap" Text="{Binding EElement}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="154,175,0,0" TextWrapping="Wrap" Text="{Binding NElement}" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

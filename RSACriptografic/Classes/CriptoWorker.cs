@@ -40,16 +40,19 @@ namespace RSACriptografic.Classes
             {
                 d = (uint)random.Next((int)m-1);
             }
-            //for (int i = (int)m-1; i > 1; i--)
-            //{
-            //    if (SimpleNumberWorker.IsMutuallyPrimary((uint)i,m))
-            //    {
-            //        d = (uint)i;
-            //        break;
-            //    }
-            //}
             e = FindEelement(random);
         }
+
+        public CriptoWorker(uint p, uint q, uint n, uint m, uint d, uint e)
+        {
+            this.p = p;
+            this.q = q;
+            this.n = n;
+            this.m = m;
+            this.d = d;
+            this.e = e;
+        }
+
         /// <summary>
         /// Шифрование RSA
         /// </summary>
@@ -57,7 +60,7 @@ namespace RSACriptografic.Classes
         /// <param name="e">Первый элемент открытого ключа</param>
         /// <param name="n">Второй элемент открытого ключа</param>
         /// <returns>Зашифрованое сообщение</returns>
-        public string Encript(string message,uint e,uint n)
+        public string Encript(string message)
         {
             message = message.ToLower();
             string encriptMessage = "";
@@ -72,11 +75,19 @@ namespace RSACriptografic.Classes
                         break;
                     }
                 }
-                encriptMessage += Convert.ToString((int)(Math.Pow(index, e)%n))+"|";
+                if (index<n)
+                {
+                    encriptMessage += Convert.ToString((int)(Math.Pow(index, e) % n)) + "|";
+                }
+                else
+                {
+                    encriptMessage += " ";
+                }
             }
             using (StreamWriter stream = new StreamWriter("1.txt", false))
             {
                 stream.WriteLine(encriptMessage);
+                stream.WriteLine(ToString());
             }
             return encriptMessage;
         }
@@ -98,6 +109,7 @@ namespace RSACriptografic.Classes
             using (StreamWriter stream = new StreamWriter("2.txt",false))
             {
                 stream.WriteLine(unEncriptMessage);
+                stream.WriteLine(ToString());
             }
             return unEncriptMessage;
         }
