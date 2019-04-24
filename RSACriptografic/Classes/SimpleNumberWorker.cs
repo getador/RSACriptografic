@@ -10,17 +10,15 @@ namespace RSACriptografic.Classes
     {
         public static bool IsPrime(uint num)
         {
-            if (num == 1) return false;
-            if ((num % 2 == 0) && (num > 2)) return true;
+            if (num == 2 || num == 3) return true;
+            if ((num % 2 == 0) && (num > 2)) return false;
 
-            int divsCount = 1;
-
-            for (int i = 1; i <= num/2; i++)
+            for (int i = 3; i <= num / 2; i += 2)
             {
-                if (num % i == 0) divsCount++;
+                if (num % i == 0) return false;
             }
 
-            return divsCount == 2 ? true : false;
+            return true;
         }
 
         public static bool IsMutuallyPrimary(uint firstNum, uint secondNum)
