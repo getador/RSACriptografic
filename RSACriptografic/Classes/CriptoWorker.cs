@@ -101,7 +101,7 @@ namespace RSACriptografic.Classes
             }
             //for (int i = 0; i < message.Length; i++)
             //{
-            //    int index = 0;
+qwer            //    int index = 0;
             //    for (int j = 0; j < Alphabet.alphabet.Length; j++)
             //    {
             //        if (message[i]==Alphabet.alphabet[j])
