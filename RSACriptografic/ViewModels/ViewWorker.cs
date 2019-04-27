@@ -18,15 +18,18 @@ namespace RSACriptografic.ViewModels
         {
             EncriptMessage = "";
             first = new CriptoWorker(30, random);
-            //first = new CriptoWorker(3,7,21,12, 5, 17);
-            //first = new CriptoWorker(3,11,33,20, 3, 7);
+            ChangElementForAdd();
+            StatusFirst = first.ToString().Replace(" ", Environment.NewLine);
+        }
+
+        private void ChangElementForAdd()
+        {
             pElement = first.P;
             QElement = first.Q;
             MElement = first.M;
             DElement = first.D;
             EElement = first.E;
             NElement = first.N;
-            StatusFirst = first.ToString().Replace(" ", Environment.NewLine);
         }
 
         private void ChangeElementInClass()

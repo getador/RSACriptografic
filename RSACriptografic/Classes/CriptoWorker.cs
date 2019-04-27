@@ -90,8 +90,8 @@ namespace RSACriptografic.Classes
             BigInteger biN = new BigInteger(n);
             for (int i = 0; i < message.Length; i++)
             {
-                    int index = Array.IndexOf(Alphabet.alphabet.ToCharArray(), message[i]);
-                if (index <= n)
+                int index = Array.IndexOf(Alphabet.alphabet.ToCharArray(), message[i]);
+                if (index <= n&&index!=-1)
                 {
                     BigInteger bi = new BigInteger(index);
                     bi = BigInteger.Pow(bi, (int)e);

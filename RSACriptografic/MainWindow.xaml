@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RSACriptografic"
         xmlns:ViewA="clr-namespace:RSACriptografic.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="263.6" Width="325.6">
     <Window.DataContext>
         <ViewA:ViewWorker/>
     </Window.DataContext>
