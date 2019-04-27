@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using System.Numerics;
 
 namespace RSACriptografic.Classes
 {
@@ -27,22 +28,45 @@ namespace RSACriptografic.Classes
             q = 0;
             while (!SimpleNumberWorker.IsPrime(p))
             {
-                p = (uint)random.Next(2,maxValue);
+                p = (uint)random.Next(3,maxValue);
             }
             while (!SimpleNumberWorker.IsPrime(q))
             {
-                q = (uint)random.Next(2, maxValue);
+                q = (uint)random.Next(3, maxValue);
             }
             n = p * q;
             m = (p - 1) * (q - 1);
-            d = m;
-            while (!SimpleNumberWorker.IsMutuallyPrimary(d,m))
-            {
-                d = (uint)random.Next((int)m-1);
-            }
-            e = FindEelement(random);
-        }
 
+            d = (uint)CalculateD((int)m);
+            //d = m;
+            //while (!SimpleNumberWorker.IsMutuallyPrimary(d,m))
+            //{
+            //    d = (uint)random.Next((int)m-1);
+            //}
+            e = (uint)CalculateE((int)d, (int)m);
+        }
+        private int CalculateD(int m)
+        {
+            int d = m - 1;
+            for (int i = 2; i <= m; i++)
+            {
+                if ((m % i == 0) && (d % i == 0))
+                {
+                    d--;
+                    i = 1;
+                }
+            }
+            return d;
+        }
+        private int CalculateE(int d, int m)
+        {
+            int e = 10;
+            while ((e * d % m) != 1)
+            {
+                e++;
+            }
+            return e;
+        }
         public CriptoWorker(uint p, uint q, uint n, uint m, uint d, uint e)
         {
             this.p = p;
@@ -52,7 +76,6 @@ namespace RSACriptografic.Classes
             this.d = d;
             this.e = e;
         }
-
         /// <summary>
         /// Шифрование RSA
         /// </summary>
@@ -64,26 +87,39 @@ namespace RSACriptografic.Classes
         {
             message = message.ToLower();
             string encriptMessage = "";
+            BigInteger biN = new BigInteger(n);
             for (int i = 0; i < message.Length; i++)
             {
-                int index = 0;
-                for (int j = 0; j < Alphabet.alphabet.Length; j++)
+                    int index = Array.IndexOf(Alphabet.alphabet.ToCharArray(), message[i]);
+                if (index <= n)
                 {
-                    if (message[i]==Alphabet.alphabet[j])
-                    {
-                        index = j;
-                        break;
-                    }
-                }
-                if (index<n)
-                {
-                    encriptMessage += Convert.ToString((int)(Math.Pow(index, e) % n)) + "|";
-                }
-                else
-                {
-                    encriptMessage += " ";
+                    BigInteger bi = new BigInteger(index);
+                    bi = BigInteger.Pow(bi, (int)e);
+                    bi %= biN;
+                    encriptMessage += bi.ToString() + "|";
                 }
             }
+            //for (int i = 0; i < message.Length; i++)
+            //{
+            //    int index = 0;
+            //    for (int j = 0; j < Alphabet.alphabet.Length; j++)
+            //    {
+            //        if (message[i]==Alphabet.alphabet[j])
+            //        {
+            //            index = j;
+            //            qwer.Add(index);
+            //            break;
+            //        }
+            //    }
+            //    if (index<n)
+            //    {
+            //        encriptMessage += Convert.ToString((int)(Math.Pow(index, e) % n)) + "|";
+            //    }
+            //    else
+            //    {
+            //        encriptMessage += " ";
+            //    }
+            //}
             using (StreamWriter stream = new StreamWriter("1.txt", false))
             {
                 stream.WriteLine(encriptMessage);
@@ -91,21 +127,34 @@ namespace RSACriptografic.Classes
             }
             return encriptMessage;
         }
+        public List<int> qwer = new List<int>();
         public string ToUnEncript(string message)
         {
             string unEncriptMessage = "";
             string[] arrayElement = message.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            BigInteger biN = new BigInteger(n);
             for (int i = 0; i < arrayElement.Length; i++)
             {
-                //try
-                //{
-                //unEncriptMessage += Convert.ToString((int)(Math.Pow(int.Parse(arrayElement[i]), d) % n)) + "|";
-                unEncriptMessage += Convert.ToString(Alphabet.alphabet[(int)(Math.Pow(int.Parse(arrayElement[i]), d) % n)]);
-                //}
-                //catch (Exception)
-                //{
-                //}                
+                int num = Convert.ToInt32(arrayElement[i]);
+                BigInteger bi = new BigInteger(num);
+                bi = BigInteger.Pow(bi, (int)d);
+                bi %= biN;
+                int index = Convert.ToInt32(bi.ToString());
+                unEncriptMessage += Alphabet.alphabet[index].ToString();
             }
+            //return unEncriptMessage;
+            //for (int i = 0; i < arrayElement.Length; i++)
+            //{
+            //    //try
+            //    //{
+            //    //unEncriptMessage += Convert.ToString((int)(Math.Pow(int.Parse(arrayElement[i]), d) % n)) + "|";
+
+            //    unEncriptMessage += Convert.ToString(Alphabet.alphabet[(int)(Math.Pow(int.Parse(arrayElement[i]), d) % n)]);
+            //    //}
+            //    //catch (Exception)
+            //    //{
+            //    //}                
+            //}
             using (StreamWriter stream = new StreamWriter("2.txt",false))
             {
                 stream.WriteLine(unEncriptMessage);
@@ -115,10 +164,18 @@ namespace RSACriptografic.Classes
         }
         public uint FindEelement(Random random)
         {
-            uint element = 0;
-            while (!(element*d%m==1))
+            uint element = 10;
+            //for (int i = 2; i < m; i++)
+            //{
+            //    if (i*d==1%m)
+            //    {
+            //        element = (uint)i;
+            //        break;
+            //    }
+            //}
+            while ((element * d % m) != 1)
             {
-                element = (uint)random.Next((int)m - 1);
+                element++;// = (uint)random.Next((int)m - 1);
             }
             //for (int i = 0; i < m; i++)
             //{
