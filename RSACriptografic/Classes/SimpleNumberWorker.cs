@@ -10,7 +10,7 @@ namespace RSACriptografic.Classes
     {
         public static bool IsPrime(uint num)
         {
-            if (num == 2 || num == 3 || num == 5) return true;
+            if (num == 2) return true;
             if (num % 2 == 0) return false;
 
             for (int i = 3; i <= num / 2; i += 2)
