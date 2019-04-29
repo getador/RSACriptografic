@@ -23,5 +23,6 @@
         <TextBox HorizontalAlignment="Left" Height="17" Margin="154,141,0,0" TextWrapping="Wrap" Text="{Binding DElement}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="17" Margin="154,158,0,0" TextWrapping="Wrap" Text="{Binding EElement}" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="17" Margin="154,175,0,0" TextWrapping="Wrap" Text="{Binding NElement}" VerticalAlignment="Top" Width="120"/>
+        <Button Command="{Binding UnEncriptBtnFromFile}" Content="Расшифровать с файла" HorizontalAlignment="Left" Margin="0,209,0,0" VerticalAlignment="Top" Width="155"/>
     </Grid>
 </Window>

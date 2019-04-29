@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using RSACriptografic.Classes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace RSACriptografic.ViewModels
 {
@@ -187,6 +189,22 @@ namespace RSACriptografic.ViewModels
                     {
                         ChangeElementInClass();
                         UnEncriptMessage = $@"{first.ToUnEncript(EncriptMessage)}";
+                    }
+                });
+            }
+        }
+        public ICommand UnEncriptBtnFromFile
+        {
+            get
+            {
+                return new DelegateCommand((obj) =>
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        ChangeElementInClass();
+                        StreamReader reader = new StreamReader(openFileDialog.FileName);
+                        UnEncriptMessage = $@"{first.ToUnEncript(reader.ReadLine())}";
                     }
                 });
             }
