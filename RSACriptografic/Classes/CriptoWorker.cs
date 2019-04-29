@@ -140,7 +140,14 @@ namespace RSACriptografic.Classes
                 bi = BigInteger.Pow(bi, (int)d);
                 bi %= biN;
                 int index = Convert.ToInt32(bi.ToString());
-                unEncriptMessage += Alphabet.alphabet[index].ToString();
+                try
+                {
+                    unEncriptMessage += Alphabet.alphabet[index].ToString();
+                }
+                catch (Exception)
+                {
+
+                }
             }
             //return unEncriptMessage;
             //for (int i = 0; i < arrayElement.Length; i++)
